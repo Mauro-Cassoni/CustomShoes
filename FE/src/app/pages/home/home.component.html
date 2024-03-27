@@ -1,0 +1,56 @@
+<div class="position-relative">
+  <div class="bg-dark position-absolute h-100 w-100 opacity-50"></div>
+  <div class="bg-dark position-absolute h-50 w-100 opacity-50 banner"></div>
+  <div class="position-absolute central-text">
+    <h1>Custom Shoes</h1>
+  </div>
+  <video width="100%" height="auto" [autoplay]="true" [loop]="true" [muted]="true">
+    <source src="../../../assets/video/CustomShoes.mp4" type="video/mp4">
+    Your browser does not support video playback.
+  </video>
+  <div class="position-absolute scroll d-none d-md-inline">
+    <i class="bi bi-arrow-left"></i> SCROLL
+  </div>
+</div>
+
+<div class="container p-3">
+
+
+  <h2 class="text-center my-3">Products</h2>
+
+  <div class="row justify-content-center gap-3 text-center">
+    <div class="col d-flex justify-content-center" *ngFor="let p of products">
+
+      <div class="card bg-info my-3 p-2" style="width: 16rem;" [routerLink]="['/product/detail-product', p.id]">
+        <div *ngIf="p.img" class="product-image rounded border border-primary"
+          [ngStyle]="{'background-image': 'url(' + p.img + ')'}"></div>
+        <img *ngIf="!p.img" id="img" class="img-card" src="../../../../assets/img/logo/CustomShoes.png"
+          alt="placeholder image">
+
+        <div class="card-body">
+          <h5 class="card-title"><span class="text-primary">Name: </span> <span class="fw-bold">{{p.name}}</span></h5>
+        </div>
+        <ul class="list-group-flush">
+          <li class="list-group-item text-start"><span class="text-primary">Brand: </span> <span>{{p.brand}}</span></li>
+          <li class="list-group-item text-start"><span class="text-primary">Category: </span>
+            <span>{{p.category}}</span></li>
+
+          <!-- customer price -->
+          <li class="list-group-item text-start" *ngIf="user.user.userType != 'BUSINESS'">
+            <span class="text-primary">Price: </span> <span>{{p.price | number:'1.2-2' }}€</span>
+          </li>
+
+          <!-- business price -->
+          <li class="list-group-item text-start" *ngIf="user.user.userType == 'BUSINESS'">
+            <span class="text-primary">Price: </span> <span>{{ (p.price * 0.78) | number:'1.2-2' }}€</span>
+          </li>
+
+
+        </ul>
+        <div class="card-body">
+          <a (click)="addToCart($event, p.id)" class="card-link btn btn-secondary">Add to cart</a>
+        </div>
+      </div>
+
+    </div>
+  </div>

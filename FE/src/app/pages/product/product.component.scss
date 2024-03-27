@@ -1,0 +1,69 @@
+@import '../../styles/custom-colors';
+
+a {
+  text-decoration: none;
+}
+
+.btn-gear,
+.btn-add,
+.btn-filter {
+  position: fixed;
+  z-index: 10;
+  height: 40px;
+  width: 40px;
+}
+
+.btn-gear,
+.btn-filter {
+  font-size: 1.5rem;
+  line-height: 43px;
+}
+
+
+.btn-gear {
+  bottom: 70px;
+  right: 10px;
+}
+
+.btn-add {
+  line-height: 40px;
+  font-size: 2rem;
+  right: -45px;
+  bottom: 120px;
+  transition: right 0.5s ease;
+}
+
+.btn-filter {
+  right: -45px;
+  bottom: 170px;
+  transition: right 1.0s ease;
+}
+
+.open {
+  right: 10px;
+}
+
+.product-image {
+  width: 238px;
+  height: 238px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.img-card {
+  width: 238px;
+  height: 238px;
+}
+
+.card {
+  transition: 0.5s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  .visible {
+    right: 20px;
+  }
+}

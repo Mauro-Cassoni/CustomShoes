@@ -1,0 +1,13 @@
+.btn-pink {
+  background-color: var(--my-pink);
+  color: white;
+}
+
+.btn-purple {
+  background-color: var(--my-purple);
+  color: white;
+}
+
+.pink {
+  color: var(--my-pink);
+}

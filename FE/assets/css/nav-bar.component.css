@@ -1,0 +1,59 @@
+img {
+  height: 40px;
+}
+
+.navbar,
+.mobile-navbar {
+  background-color: var(--my-purple);
+  z-index: 100;
+}
+
+.navbar-toggler-icon {
+  color: var(--my-pink);
+}
+
+.mobile-navbar {
+  position: fixed;
+  bottom: 0;
+  z-index: 50;
+  width: 100vw;
+}
+
+.mobile-form {
+  width: 67vw;
+}
+
+.btnProfile {
+  border: none;
+  color: var(--my-pink);
+  font-size: 1.5rem;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.btnProfile:hover {
+  color: white;
+}
+
+.form-control:focus, .form-control:focus-visible {
+  border-color: var(--my-pink);
+  box-shadow: 0 0 0 0.25rem rgb(208, 39, 60);
+}
+
+.btn {
+  padding: 0;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu {
+  transform-origin: right top;
+  transform: translateX(-78%);
+}
+
+@media screen and (min-width: 768px) {
+  img {
+    height: 50px;
+  }
+}

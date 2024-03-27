@@ -1,0 +1,65 @@
+<div class="container py-3">
+
+  <h2 class="text-center my-3">Products</h2>
+
+  <div class="d-none d-lg-block my-5">
+    <div class="row gap-3">
+      <a class="col btn btn-secondary" routerLink="/product/new-product">NEW</a>
+      <button class="col btn btn-secondary">FILTER</button>
+    </div>
+  </div>
+
+  <div class="row text-center">
+    <div class="col d-flex justify-content-center" *ngFor="let p of products">
+
+      <div class="card bg-info my-3 p-2" style="width: 16rem;">
+        <div *ngIf="p.img" class="product-image rounded border border-primary"
+          [ngStyle]="{'background-image': 'url(' + p.img + ')'}"></div>
+        <img *ngIf="!p.img" id="img" class="bg-light img-card rounded border border-primary"
+          src="../../../../assets/img/logo/CustomShoes.png" alt="placeholder image">
+
+        <div class="card-body">
+          <h5 class="card-title"><span class="text-primary">Name: </span> <span
+              class="text-light fw-bold">{{p.name}}</span></h5>
+        </div>
+        <ul class="list-group-flush">
+          <li class="list-group-item text-start"><span class="text-primary">Brand: </span>{{p.brand}}</li>
+          <li class="list-group-item text-start"><span class="text-primary">Category: </span>{{p.category}}</li>
+          <li class="list-group-item text-start"><span class="text-primary">Price: </span>{{p.price}}€</li>
+          <li class="list-group-item text-start"><span class="text-primary">On sale: </span>
+            <i *ngIf="p.onSale === false" class="bi bi-stop-fill text-danger"></i>
+            <i *ngIf="p.onSale === true" class="bi bi-stop-fill text-success"></i>
+          </li>
+        </ul>
+        <div class="card-body">
+          <a [routerLink]="['/product/edit-product', p.id]" class="card-link btn btn-secondary">Edit</a>
+          <a (click)="deleteProduct(p.id)" class="card-link btn btn-primary">Delete</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- menù products mobile -->
+  <div class="d-block d-lg-none">
+    <div class="btn-gear bg-primary rounded-circle text-center" (click)="open = !open">
+      <div>
+        <i class="bi bi-gear-fill"></i>
+      </div>
+    </div>
+
+    <div class="btn-add bg-primary rounded-circle text-center" [ngClass]="{'open' : open}">
+      <a class="text-light" routerLink="/product/new-product">
+        +
+      </a>
+    </div>
+
+    <div class="btn-filter bg-primary rounded-circle text-center" [ngClass]="{'open' : open}">
+      <a class="text-light">
+        <i class="bi bi-funnel"></i>
+      </a>
+    </div>
+  </div>
+
+
+</div>

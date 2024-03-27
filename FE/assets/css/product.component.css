@@ -1,0 +1,29 @@
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.btn-add {
+  background-color: var(--my-purple);
+  position: fixed;
+  bottom: 70px;
+  right: 10px;
+  font-size: 2rem;
+  line-height: 40px;
+  z-index: 10;
+  height: 40px;
+  width: 40px;
+}
+
+.pink {
+  color: var(--my-pink);
+}
+
+.purple {
+  color: var(--my-purple);
+}
+
+.btn-purple {
+  background-color: var(--my-purple);
+  color: white;
+}

@@ -1,0 +1,74 @@
+.product-image {
+  width: 238px;
+  height: 238px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.card {
+  transition: 0.5s;
+
+  &:hover {
+    transform: scale(1.04);
+  }
+
+}
+
+.banner {
+  top: 25%;
+}
+
+.central-text {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  h1{
+    font-size: 1.8rem;
+
+    @media (min-width: 375px) {
+      font-size: 2.1rem;
+    }
+
+    @media (min-width: 425px) {
+      font-size: 2.4rem;
+    }
+
+    @media (min-width: 768px) {
+      font-size: 3.7rem;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 5.7rem;
+    }
+
+    @media (min-width: 1440px) {
+      font-size: 7rem;
+    }
+
+    @media (min-width: 1920px) {
+      font-size: 9rem;
+    }
+  }
+}
+
+.scroll {
+  right: 10%;
+  top: 90%;
+  transform: rotate(-90deg);
+  animation: moveUpDown 3s ease infinite;
+  font-size: 1rem;
+  @media (min-width: 1920px) {
+  font-size: 1.7rem;
+  }
+}
+
+@keyframes moveUpDown {
+  0%,
+  100% {
+    top: 90%;
+  }
+  50% {
+    top: 70%;
+  }
+}

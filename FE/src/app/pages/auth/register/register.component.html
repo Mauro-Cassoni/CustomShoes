@@ -1,0 +1,160 @@
+<div class="container py-3">
+  <div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <h2 class="text-center my-3 text-info">Sign up</h2>
+
+      <div class="row justify-content-center">
+
+        <!-- User Type -->
+        <div class="col-md-7">
+          <label for="userType">User Type *</label>
+          <select id="userType" class="form-control bg-light" formControlName="userType">
+            <option class="text-dark" *ngFor="let type of userTypes" [value]="type">{{ type }}</option>
+          </select>
+          <div class="error-msg">
+            <span *ngIf="form.controls['userType'].dirty"
+              [ngClass]="{ 'valid': isValid('userType'), 'invalid': isInvalid('userType') }"
+              class="ms-1 text-danger">{{msg.userType}}</span>
+          </div>
+        </div>
+
+        <!-- name -->
+        <div class="col-md-7">
+          <label for="name">Name *</label>
+          <input type="text" id="name" class="form-control bg-light" formControlName="name"
+            [ngClass]="{'is-valid': isValid('name'), 'is-invalid': isInvalid('name')}">
+          <div class="error-msg">
+            <span *ngIf="form.controls['name'].dirty"
+              [ngClass]="{ 'valid': isValid('name'), 'invalid': isInvalid('name') }"
+              class="ms-1 text-danger">{{msg.name}}</span>
+          </div>
+        </div>
+
+        <!-- surname -->
+        <div class="col-md-7">
+          <label for="surname">Surname *</label>
+          <input type="text" id="surname" class="form-control bg-light" formControlName="surname"
+            [ngClass]="{'is-valid': isValid('surname'), 'is-invalid': isInvalid('surname')}">
+          <div class="error-msg">
+            <span *ngIf="form.controls['surname'].dirty"
+              [ngClass]="{ 'valid': isValid('surname'), 'invalid': isInvalid('surname') }"
+              class="ms-1 text-danger">{{msg.surname}}</span>
+          </div>
+        </div>
+
+        <!-- email -->
+        <div class="col-md-7">
+          <label for="email">Email *</label>
+          <input type="email" id="email" class="form-control bg-light" formControlName="email"
+            [ngClass]="{'is-valid': isValid('email'), 'is-invalid': isInvalid('email')}">
+          <div class="error-msg">
+            <span *ngIf="form.controls['email'].dirty"
+              [ngClass]="{ 'valid': isValid('email'), 'invalid': isInvalid('email') }"
+              class="ms-1 text-danger">{{msg.email}}</span>
+          </div>
+        </div>
+
+        <!-- password -->
+        <div class="col-md-7">
+          <label for="password">Password *</label>
+          <input type="password" id="password" class="form-control bg-light" formControlName="password"
+            [ngClass]="{'is-valid': isValid('password'), 'is-invalid': isInvalid('password')}">
+
+          <span *ngIf="form.controls['password'].dirty"
+            [ngClass]="{ 'valid': isValid('password'), 'invalid': isInvalid('password') }"
+            class="text-danger">{{msg.password}}</span>
+          <div class="error-msg"></div>
+        </div>
+
+        <!-- confirm password -->
+        <div class="col-md-7">
+          <label for="confirmPassword">Confirm Password *</label>
+          <input type="password" id="confirmPassword" class="form-control bg-light" formControlName="confirmPassword"
+            [ngClass]="{'is-valid': isValid('confirmPassword'), 'is-invalid': isInvalid('confirmPassword')}">
+          <div class="error-msg"></div>
+        </div>
+
+      </div>
+
+
+
+      <!-- Business section -->
+      <div *ngIf="form.controls['userType'].value === 'BUSINESS'">
+
+
+        <div class="row justify-content-center">
+
+          <!-- Business Name -->
+          <div class="col-md-7">
+            <label for="businessName">Business name *</label>
+            <input type="text" id="businessName" class="form-control bg-light" formControlName="businessName"
+              [ngClass]="{'is-valid': isValid('businessName'), 'is-invalid': isInvalid('businessName')}">
+            <div class="error-msg">
+              <span *ngIf="form.controls['businessName'].dirty"
+                [ngClass]="{ 'valid': isValid('businessName'), 'invalid': isInvalid('businessName') }"
+                class="ms-1 text-danger">{{msg.businessName}}</span>
+            </div>
+          </div>
+
+          <!-- Vat Number -->
+          <div class="col-md-7">
+            <label for="businessName">Vat number *</label>
+            <input type="text" id="vatNumber" class="form-control bg-light" formControlName="vatNumber"
+              [ngClass]="{'is-valid': isValid('vatNumber'), 'is-invalid': isInvalid('vatNumber')}">
+            <div class="error-msg">
+              <span *ngIf="form.controls['vatNumber'].dirty"
+                [ngClass]="{ 'valid': isValid('vatNumber'), 'invalid': isInvalid('vatNumber') }"
+                class="ms-1 text-danger">{{msg.vatNumber}}</span>
+            </div>
+          </div>
+
+          <!-- Pec -->
+          <div class="col-md-7">
+            <label for="pec">Pec *</label>
+            <input type="email" id="pec" class="form-control bg-light" formControlName="pec"
+              [ngClass]="{'is-valid': isValid('pec'), 'is-invalid': isInvalid('pec')}">
+            <div class="error-msg">
+              <span *ngIf="form.controls['pec'].dirty"
+                [ngClass]="{ 'valid': isValid('pec'), 'invalid': isInvalid('pec') }"
+                class="ms-1 text-danger">{{msg.pec}}</span>
+            </div>
+          </div>
+
+          <!-- SDI -->
+          <div class="col-md-7">
+            <label for="sdi">SDI *</label>
+            <input type="email" id="sdi" class="form-control bg-light" formControlName="sdi"
+              [ngClass]="{'is-valid': isValid('sdi'), 'is-invalid': isInvalid('sdi')}">
+            <div class="error-msg">
+              <span *ngIf="form.controls['sdi'].dirty"
+                [ngClass]="{ 'valid': isValid('sdi'), 'invalid': isInvalid('sdi') }"
+                class="ms-1 text-danger">{{msg.sdi}}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="row justify-content-center">
+        <div class="col-md-7">
+          <button [disabled]="!form.valid" class="btn btn-secondary" type="submit">Sign in</button>
+        </div>
+      </div>
+
+
+
+    </form>
+
+    <div class="my-3 row justify-content-center">
+      <div class="col-md-7">
+        <span>Are you already registered? Go to </span>
+        <a class="text-secondary" type="submit" routerLink="../../auth/login">
+          Login
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

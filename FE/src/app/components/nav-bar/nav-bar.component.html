@@ -1,0 +1,193 @@
+<div class="navbar bg-primary px-3 py-1">
+  <a routerLink="/home">
+    <img src="../../../assets/img/logo/CustomShoes.png" alt="logo CustomShoes">
+  </a>
+
+  <div class="d-flex flex-end">
+    <!-- desktop navbar -->
+    <div class="d-none d-md-flex">
+
+      <!-- search button -->
+      <form class="d-flex mx-2" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+        <button class="btn" type="submit">
+          <i class="bi bi-search btnProfile text-info"></i>
+        </button>
+      </form>
+
+      <!-- cart button -->
+      <div class="mx-2">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+              <i class="bi bi-cart3 btnProfile text-info position-relative"></i>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+                {{ cartService.getCartItems().length }}
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="p-1">
+              <a *ngFor="let p of cartService.getCartItems()" ngbDropdownItem>
+                <div class="cart-dropdown d-flex align-items-center">
+                  <div class="col-2">
+                    <img class="img-cart rounded mx-1 border border-1 border-primary" [src]="p.img">
+                  </div>
+                  <div class="col text-dark cart-name">{{p.name}}</div>
+
+                  <!-- normal price -->
+                  <div class="colcol-3 text-info" *ngIf="user.user.userType != 'BUSINESS'">
+                    {{p.price | number:'1.2-2' }}€</div>
+
+                  <!-- business price -->
+                  <div class="colcol-3 text-info" *ngIf="user.user.userType == 'BUSINESS'">
+                    {{ (p.price * 0.78) | number:'1.2-2' }}€</div>
+
+                </div>
+              </a>
+              <a *ngIf="cartService.getCartItems().length > 0" class="btn btn-secondary w-100"
+                routerLink="/product/cart">Go to cart</a>
+              <div *ngIf="cartService.getCartItems().length === 0" class="dropdown-item">Your cart is empty</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- no logged profile -->
+      <div class="mx-2" *ngIf="!isLoggedIn$">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+              <i class="bi bi-person-circle btnProfile text-info"></i>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <a routerLink="/auth/login" ngbDropdownItem>LOGIN</a>
+              <a routerLink="/auth/register" ngbDropdownItem>REGISTER</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- logged profile -->
+      <div *ngIf="isLoggedIn$" class="mx-2">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+              <i class="bi bi-person-circle btnProfile text-info"></i>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <a routerLink="/account" ngbDropdownItem>ACCOUNT</a>
+              <a routerLink="/account/wishlist" ngbDropdownItem>WISHLIST</a>
+              <a (click)="logout()" ngbDropdownItem>LOGOUT</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- mobile navbar -->
+<div class="mobile-navbar bg-primary d-flex justify-content-between align-items-center d-md-none px-3 py-1 rounded">
+
+  <!-- cart button -->
+  <div class="mx-2">
+    <div class="col">
+      <div ngbDropdown class="d-inline-block">
+        <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+          <i class="bi bi-cart3 btnProfile text-info position-relative"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+            {{ cartService.getCartItems().length }}
+          </span>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="p-1">
+          <a *ngFor="let p of cartService.getCartItems()" ngbDropdownItem>
+            <div class="cart-dropdown d-flex align-items-center">
+              <div class="col-2">
+                <img class="img-cart rounded mx-1 border border-1 border-primary" [src]="p.img">
+              </div>
+              <div class="col text-dark cart-name">{{p.name}}</div>
+
+              <!-- normal price -->
+              <div class="colcol-3 text-info" *ngIf="user.user.userType != 'BUSINESS'">
+                {{p.price | number:'1.2-2' }}€</div>
+
+              <!-- business price -->
+              <div class="colcol-3 text-info" *ngIf="user.user.userType == 'BUSINESS'">
+                {{ (p.price * 0.78) | number:'1.2-2' }}€</div>
+
+            </div>
+          </a>
+          <a *ngIf="cartService.getCartItems().length > 0" class="btn btn-secondary w-100" routerLink="/product/cart">Go
+            to cart</a>
+          <div *ngIf="cartService.getCartItems().length === 0" class="dropdown-item">Your cart is empty</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- search button -->
+  <div>
+    <div class="col">
+      <div ngbDropdown class="d-inline-block">
+        <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+          <i class="bi bi-search btnProfile text-info"></i>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <form class="d-flex mx-2 mobile-form" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+            <button class="btn" type="submit">
+              <i class="bi bi-search btnProfile text-info"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- home button -->
+  <a class="btnProfile" routerLink="/home">
+    <i class="bi bi-house-fill text-info"></i>
+  </a>
+
+  <!-- logged heart -->
+  <a *ngIf="isLoggedIn$" class="btnProfile" routerLink="/account/wishlist">
+    <i class="bi bi-heart-fill text-info"></i>
+  </a>
+
+  <!-- no logged heart -->
+  <a *ngIf="!isLoggedIn$" class="btnProfile" routerLink="/auth/login">
+    <i class="bi bi-heart text-info"></i>
+  </a>
+
+  <!-- no logged profile -->
+  <div *ngIf="!isLoggedIn$">
+    <div class="col">
+      <div ngbDropdown class="d-inline-block">
+        <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+          <i class="bi bi-person-circle btnProfile text-info"></i>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <a routerLink="/auth/login" ngbDropdownItem>LOGIN</a>
+          <a routerLink="/auth/register" ngbDropdownItem>REGISTER</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- logged profile -->
+  <div *ngIf="isLoggedIn$">
+    <div class="col">
+      <div ngbDropdown class="d-inline-block">
+        <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+          <i class="bi bi-person-circle btnProfile text-info"></i>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <a routerLink="/account" ngbDropdownItem>ACCOUNT</a>
+          <a routerLink="/account/wishlist" ngbDropdownItem>WISHLIST</a>
+          <a (click)="logout()" ngbDropdownItem>LOGOUT</a>
+        </div>
+      </div>
+    </div>
+
+  </div>

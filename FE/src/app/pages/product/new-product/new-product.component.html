@@ -1,0 +1,104 @@
+<div class="container py-3">
+  <div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <h2 class="text-center text-secondary my-3">New product</h2>
+
+      <!-- Name -->
+      <div class="col-md-6">
+        <label for="name">Name *</label>
+        <input type="text" id="name" class="form-control bg-light bg-light" formControlName="name"
+          [ngClass]="{'is-valid': isValid('name'), 'is-invalid': isInvalid('name')}">
+        <div class="error-msg">
+          <span *ngIf="form.controls['name'].dirty"
+            [ngClass]="{ 'valid': isValid('name'), 'invalid': isInvalid('name') }"
+            class="ms-1 text-danger">{{msg.name}}</span>
+        </div>
+      </div>
+
+      <!-- Brand -->
+      <div class="col-md-6">
+        <label for="name">Brand</label>
+        <input type="text" id="brand" class="form-control bg-light" formControlName="brand"
+          [ngClass]="{'is-valid': isValid('brand'), 'is-invalid': isInvalid('brand')}">
+        <div class="error-msg">
+          <span *ngIf="form.controls['brand'].dirty"
+            [ngClass]="{ 'valid': isValid('brand'), 'invalid': isInvalid('brand') }"
+            class="ms-1 text-danger">{{msg.brand}}</span>
+        </div>
+      </div>
+
+      <!-- Category -->
+      <div class="col-md-6">
+        <label for="category">Category *</label>
+        <input type="text" id="category" class="form-control bg-light" formControlName="category"
+          [ngClass]="{'is-valid': isValid('category'), 'is-invalid': isInvalid('category')}">
+        <div class="error-msg">
+          <span *ngIf="form.controls['category'].dirty"
+            [ngClass]="{ 'valid': isValid('category'), 'invalid': isInvalid('category') }"
+            class="ms-1 text-danger">{{ msg.category }}</span>
+        </div>
+      </div>
+
+      <!-- Size -->
+      <div class="col-md-6">
+        <label for="name">Size</label>
+        <input type="text" id="size" class="form-control bg-light" formControlName="size"
+          [ngClass]="{'is-valid': isValid('size'), 'is-invalid': isInvalid('size')}">
+        <div class="error-msg">
+          <span *ngIf="form.controls['size'].dirty"
+            [ngClass]="{ 'valid': isValid('size'), 'invalid': isInvalid('size') }"
+            class="ms-1 text-danger">{{msg.size}}</span>
+        </div>
+      </div>
+
+      <!-- Color -->
+      <div class="col-md-6">
+        <label for="name">Color</label>
+        <input type="text" id="color" class="form-control bg-light" formControlName="color"
+          [ngClass]="{'is-valid': isValid('color'), 'is-invalid': isInvalid('color')}">
+        <div class="error-msg">
+
+          <span *ngIf="form.controls['color'].dirty"
+            [ngClass]="{ 'valid': isValid('color'), 'invalid': isInvalid('color') }"
+            class="ms-1 text-danger">{{msg.color}}</span>
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="col-md-6">
+        <label for="name">Price *</label>
+        <input type="text" id="price" class="form-control bg-light" formControlName="price"
+          [ngClass]="{'is-valid': isValid('price'), 'is-invalid': isInvalid('price')}">
+        <div class="error-msg">
+          <span *ngIf="form.controls['price'].dirty"
+            [ngClass]="{ 'valid': isValid('price'), 'invalid': isInvalid('price') }"
+            class="ms-1 text-danger">{{msg.price}}</span>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="col-md-6">
+        <label for="name">Description</label>
+        <textarea type="info" id="description" class="form-control bg-light" formControlName="description"
+          [ngClass]="{'is-valid': isValid('description'), 'is-invalid': isInvalid('description')}"></textarea>
+        <div class="error-msg">
+          <span *ngIf="form.controls['description'].dirty"
+            [ngClass]="{ 'valid': isValid('description'), 'invalid': isInvalid('description') }"
+            class="ms-1 text-danger">{{msg.description}}</span>
+        </div>
+      </div>
+
+      <button [disabled]="!form.valid" class="btn btn-secondary" type="submit">Next</button>
+
+    </form>
+
+    <div class="my-3">
+      <span>Do you just want to edit? Go to </span>
+      <a class="text-secondary" type="submit" routerLink="../../profile/product">
+        Products
+      </a>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,14 @@
+span {
+  color: var(--my-purple);
+  font-weight: bold;
+}
+
+.btn-profile {
+  color: var(--my-pink);
+  background-color: var(--my-purple);
+  transition: 0.5s;
+}
+.btn-profile:hover {
+  box-shadow: 0px 0px 18px 5px #D0273C;
+  color: white;
+}

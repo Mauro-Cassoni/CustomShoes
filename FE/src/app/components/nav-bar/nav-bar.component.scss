@@ -1,0 +1,78 @@
+@import '../../styles/custom-colors';
+@import '../../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+img {
+  height: 40px;
+
+  @media(min-width: 768px) {
+    height: 50px;
+  }
+}
+
+.navbar,
+.mobile-navbar {
+  z-index: 100;
+}
+
+.mobile-navbar {
+  position: fixed;
+  bottom: 0;
+  z-index: 50;
+  width: 100vw;
+}
+
+.mobile-form {
+  width: 67vw;
+}
+
+.btnProfile {
+  border: none;
+  font-size: 1.5rem;
+  transition: 0.5s;
+  cursor: pointer;
+
+  &:hover {
+    color: $light;
+  }
+}
+
+.btn {
+  padding: 0;
+}
+
+.dropdown-toggle::after {
+  display: none;
+  outline: 0;
+}
+
+.dropdown-menu {
+  transform-origin: right top;
+  transform: translateX(-78%);
+}
+
+.dropdown-item{
+padding: 4px;
+}
+.cart-dropdown{
+  width: 234px;
+}
+
+.cart-name{
+  width: 10px;
+}
+
+.btn:active,
+.btn:focus,
+.btnProfile:focus-visible {
+  border: none;
+  outline: 0;
+}
+
+.img-cart{
+  width: 30px;
+  height: 30px;
+}
+
+a{
+  text-decoration: none;
+}

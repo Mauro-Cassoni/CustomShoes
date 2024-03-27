@@ -1,0 +1,147 @@
+<div class="container py-3">
+
+  <div class="row justify-content-center mb-5">
+
+    <h2 class="text-center my-3 mb-4 text-info">Edit Addresses</h2>
+
+    <div class="col-md-7">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <div formGroupName="shippingAddress" class="mb-5">
+
+          <h3 class="text-center my-3 text-info">Shipping address</h3>
+
+          <!-- name -->
+          <div>Name *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="name">
+
+          <!-- surname -->
+          <div>Surname *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="surname">
+
+          <!-- street -->
+          <div>Street *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="street">
+
+          <!-- street number -->
+          <div>Street number *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="streetNumber">
+
+          <!-- city -->
+          <div>City *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="city">
+
+          <!-- postal code -->
+          <div>Postal code *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="postalCode">
+
+          <!-- country -->
+          <div>Country *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="country">
+
+          <!-- province -->
+          <div>Province *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="province">
+
+          <!-- phoneNumber -->
+          <div>Phone number</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="phoneNumber">
+
+        </div>
+
+
+        <!-- Business section -->
+
+        <!-- *ngIf="user.user.userType === 'BUSINESS'" > -->
+
+        <div formGroupName="registeredOfficeAddress" class="mb-5" *ngIf="user.user.userType === 'BUSINESS'">
+
+          <h3 class="text-center my-3 text-info">Registered office address</h3>
+
+          <!-- name -->
+          <div>Name *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="name">
+
+          <!-- surname -->
+          <div>Surname *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="surname">
+
+          <!-- street -->
+          <div>Street *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="street">
+
+          <!-- street number -->
+          <div>Street number *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="streetNumber">
+
+          <!-- city -->
+          <div>City *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="city">
+
+          <!-- postal code -->
+          <div>Postal code *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="postalCode">
+
+          <!-- country -->
+          <div>Country *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="country">
+
+          <!-- province -->
+          <div>Province *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="province">
+
+          <!-- phoneNumber -->
+          <div>Phone number</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="phoneNumber">
+
+        </div>
+
+        <div formGroupName="operationalHeadquartersAddress" class="mb-5" *ngIf="user.user.userType === 'BUSINESS'">
+
+          <h3 class="text-center my-3 text-info">Operational headquarters address</h3>
+
+          <!-- name -->
+          <div>Name *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="name">
+
+          <!-- surname -->
+          <div>Surname *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="surname">
+
+          <!-- street -->
+          <div>Street *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="street">
+
+          <!-- street number -->
+          <div>Street number *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="streetNumber">
+
+          <!-- city -->
+          <div>City *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="city">
+
+          <!-- postal code -->
+          <div>Postal code *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="postalCode">
+
+          <!-- country -->
+          <div>Country *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="country">
+
+          <!-- province -->
+          <div>Province *</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="province">
+
+          <!-- phoneNumber -->
+          <div>Phone number</div>
+          <input type="text" class="form-control bg-light mb-4" formControlName="phoneNumber">
+
+        </div>
+
+        <button type="submit" class="btn btn-secondary">Send</button>
+
+      </form>
+    </div>
+
+
+  </div>
