@@ -1,1 +1,15 @@
-<p>page-not-found works!</p>
+<div class="position-relative">
+  <div class="bg-dark position-absolute h-100 w-100 opacity-50"></div>
+  <div class="bg-dark position-absolute h-50 w-100 opacity-50 banner"></div>
+  <div class="position-absolute central-text">
+    <h1 class="text-center">404</h1>
+    <h2 class="text-center">Page not found</h2>
+  </div>
+  <video width="100%" height="auto" [autoplay]="true" [loop]="true" [muted]="true">
+    <source src="../../../assets/video/CustomShoes.mp4" type="video/mp4">
+    Your browser does not support video playback.
+  </video>
+  <div class="position-absolute home central-text" routerLink="/home">
+    GO TO HOME! <i class="bi bi-emoji-smile-fill"></i>
+  </div>
+</div>

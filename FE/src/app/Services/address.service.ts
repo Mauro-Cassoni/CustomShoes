@@ -16,7 +16,7 @@ export class AddressService {
     ) { }
 
   getAllAddresses(): Observable<IAddress[]> {
-    return this.http.get<IAddress[]>(`${environment.URL}/addresses`);
+    return this.http.get<IAddress[]>(`${environment.URL}/addresses/all`);
   }
 
   getAddressById(id: number): Observable<IAddress> {

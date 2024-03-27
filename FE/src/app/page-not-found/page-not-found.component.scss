@@ -1,0 +1,65 @@
+.central-text {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  h1{
+    font-size: 1.8rem;
+
+    @media (min-width: 375px) {
+      font-size: 2.1rem;
+    }
+
+    @media (min-width: 425px) {
+      font-size: 2.4rem;
+    }
+
+    @media (min-width: 768px) {
+      font-size: 3.7rem;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 5.7rem;
+    }
+
+    @media (min-width: 1440px) {
+      font-size: 7rem;
+    }
+
+    @media (min-width: 1920px) {
+      font-size: 9rem;
+    }
+  }
+}
+
+.banner {
+  top: 25%;
+}
+
+.home {
+  left: 46%;
+  top: 70%;
+  animation: shake 3s ease infinite;
+  font-size: 1rem;
+  white-space: nowrap;
+  @media (min-width: 1920px) {
+  font-size: 1.7rem;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
