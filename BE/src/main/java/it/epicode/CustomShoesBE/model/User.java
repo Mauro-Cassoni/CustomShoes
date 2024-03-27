@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -122,4 +123,20 @@ public class User implements UserDetails {
     public String getUsername() {
         return email;
     }
+
+    public List<Address> getAddresses() {
+        List<Address> addresses = new ArrayList<>();
+        if (shippingAddress != null) {
+            addresses.add(shippingAddress);
+        }
+        if (registeredOfficeAddress != null) {
+            addresses.add(registeredOfficeAddress);
+        }
+        if (operationalHeadquartersAddress != null) {
+            addresses.add(operationalHeadquartersAddress);
+        }
+        return addresses;
+    }
 }
+
+

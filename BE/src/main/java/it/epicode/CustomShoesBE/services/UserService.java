@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -127,5 +128,10 @@ public class UserService {
         user.getInvoices().add(invoice);
         userRepository.save(user);
     }
+
+    public List<Address> getUserAddresses(User user) {
+        return user.getAddresses();
+    }
+
 
 }
