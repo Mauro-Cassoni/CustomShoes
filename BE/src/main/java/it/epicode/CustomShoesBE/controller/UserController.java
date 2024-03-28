@@ -6,13 +6,17 @@ import it.epicode.CustomShoesBE.exception.BadRequestExceptionHandler;
 import it.epicode.CustomShoesBE.exception.NotFoundException;
 import it.epicode.CustomShoesBE.model.Address;
 import it.epicode.CustomShoesBE.model.User;
+import it.epicode.CustomShoesBE.request.PasswordRequest;
 import it.epicode.CustomShoesBE.request.UserRequest;
 import it.epicode.CustomShoesBE.services.UserService;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +31,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @GetMapping("")
     public ResponseEntity<DefaultResponse> getAll(Pageable pageable){
@@ -62,13 +69,33 @@ public class UserController {
         return DefaultResponse.noObject("User successfully promoted to admin role.", HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}/addresses")
-    public ResponseEntity<DefaultResponse> getUserAddresses(@PathVariable("userId") Long userId) throws NotFoundException {
-        User user = userService.getById(userId);
-        List<Address> addresses = userService.getUserAddresses(user);
-        return DefaultResponse.noMessage(addresses, HttpStatus.OK);
+    @GetMapping("/{userId}/shippingAddress")
+    public ResponseEntity<DefaultResponse> getShippingAddress(@PathVariable("userId") Long userId) throws NotFoundException {
+        Address shippingAddress = userService.getShippingAddress(userId);
+        return DefaultResponse.noMessage(shippingAddress, HttpStatus.OK);
     }
 
+    @GetMapping("/{userId}/registeredOfficeAddress")
+    public ResponseEntity<DefaultResponse> getRegisteredOfficeAddress(@PathVariable("userId") Long userId) throws NotFoundException {
+        Address registeredOfficeAddress = userService.getRegisteredOfficeAddress(userId);
+        return DefaultResponse.noMessage(registeredOfficeAddress, HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/operationalHeadquartersAddress")
+    public ResponseEntity<DefaultResponse> getOperationalHeadquartersAddress(@PathVariable("userId") Long userId) throws NotFoundException {
+        Address operationalHeadquartersAddress = userService.getOperationalHeadquartersAddress(userId);
+        return DefaultResponse.noMessage(operationalHeadquartersAddress, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}/passwor")
+    public ResponseEntity<DefaultResponse> updatePassword(@PathVariable("id") Long id, @RequestBody @Validated PasswordRequest passwordRequest, BindingResult bindingResult) throws BadRequestExceptionHandler, NotFoundException {
+        if (bindingResult.hasErrors()) throw new  BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+        User u = userService.getById(id);
+        if (!encoder.matches(passwordRequest.getOldPassword(), u.getPassword())){
+            throw new BadRequestExceptionHandler("Passwords not match");
+        }
+        return DefaultResponse.noMessage(userService.updatePassword(id, passwordRequest.getNewPassword()), HttpStatus.OK);
+    }
 
 
 }

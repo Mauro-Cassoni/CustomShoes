@@ -124,19 +124,7 @@ public class User implements UserDetails {
         return email;
     }
 
-    public List<Address> getAddresses() {
-        List<Address> addresses = new ArrayList<>();
-        if (shippingAddress != null) {
-            addresses.add(shippingAddress);
-        }
-        if (registeredOfficeAddress != null) {
-            addresses.add(registeredOfficeAddress);
-        }
-        if (operationalHeadquartersAddress != null) {
-            addresses.add(operationalHeadquartersAddress);
-        }
-        return addresses;
-    }
+
 }
 
 

@@ -70,7 +70,6 @@ public class UserService {
         x.setName(userRequest.getName());
         x.setSurname(userRequest.getSurname());
         x.setPhoneNumber(userRequest.getPhoneNumber());
-//        x.setRole(userRequest.getRole());
         if (userRequest.getRole() != null) {
             x.setRole(userRequest.getRole());
         }
@@ -129,9 +128,51 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public List<Address> getUserAddresses(User user) {
-        return user.getAddresses();
+    public Address getShippingAddress(long id) throws NotFoundException {
+        User user = getById(id);
+        return user.getShippingAddress();
     }
 
+    public Address getRegisteredOfficeAddress(long id) throws NotFoundException {
+        User user = getById(id);
+        return user.getRegisteredOfficeAddress();
+    }
+
+    public Address getOperationalHeadquartersAddress(long id) throws NotFoundException {
+        User user = getById(id);
+        return user.getOperationalHeadquartersAddress();
+    }
+
+    public void addProductToWishlist(long userId, long productId) throws NotFoundException {
+        User user = getById(userId);
+        Product product = productService.getById(productId);
+
+        List<Product> wishlist = user.getWishlist();
+
+        if (!wishlist.contains(product)) {
+            wishlist.add(product);
+            userRepository.save(user);
+        }
+
+    }
+
+    public void removeProductFromWishlist(long userId, long productId) throws NotFoundException {
+        User user = getById(userId);
+        Product product = productService.getById(productId);
+
+        List<Product> wishlist = user.getWishlist();
+
+        if (wishlist.contains(product)) {
+            wishlist.remove(product);
+            userRepository.save(user);
+        }
+    }
+
+    public User updatePassword(long userId, String password) throws NotFoundException {
+        User u = getById(userId);
+        u.setPassword(encoder.encode(password));
+        userRepository.save(u);
+        return u;
+    }
 
 }

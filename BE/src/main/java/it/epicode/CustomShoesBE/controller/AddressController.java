@@ -46,6 +46,7 @@ public class AddressController {
         return DefaultResponse.noMessage(addressService.update(id, addressRequest), HttpStatus.OK);
     }
 
+
     @DeleteMapping("/{id}")
     public ResponseEntity<DefaultResponse> delete(@PathVariable Long id) throws NotFoundException {
         addressService.delete(id);
