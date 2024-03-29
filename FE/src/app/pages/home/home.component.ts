@@ -7,6 +7,7 @@ import { Role } from '../../Enums/role';
 import { UserType } from '../../Enums/user-type';
 import { IAuthData } from '../../Models/auth/i-auth-data';
 import { AuthService } from '../../Services/auth.service';
+import { WishlistService } from '../../Services/wishlist.service';
 
 @Component({
   selector: 'app-home',
@@ -19,9 +20,11 @@ export class HomeComponent {
     private apiShopService: ApiShopService,
     private cartService: CartService,
     private authService : AuthService,
+    public wishService : WishlistService,
   ){}
 
   products: IProduct[] = [];
+  wishlist: IProduct[] = [];
   isLoggedIn$!:boolean
   user: IAuthData ={
     token: '',
@@ -53,6 +56,7 @@ export class HomeComponent {
       if (res) this.user = res;
     });
     this.loadProducts();
+    this.loadWishlist();
   }
 
   loadProducts() {
@@ -74,6 +78,35 @@ export class HomeComponent {
         showConfirmButton: false
       });
     }
+  }
+
+  addToWishlist(event: MouseEvent, userId: number, productId: number): void {
+    event.stopPropagation();
+    this.wishService.addToWishlist(userId, productId).subscribe(() => {
+      const productToAdd = this.products.find(product => product.id === productId);
+      if (productToAdd) {
+        this.wishlist.push(productToAdd);
+      }
+    });
+  }
+
+
+  removeFromWishlist(event: MouseEvent, userId: number, productId: number): void {
+    event.stopPropagation();
+    this.wishService.removeFromWishlist(userId, productId).subscribe(() => {
+      this.wishlist = this.wishlist.filter(product => product.id !== productId)
+    });
+  }
+
+  loadWishlist() {
+    this.wishService.getWishlist(this.user.user.id).subscribe(data => {
+      this.wishlist = data.obj;
+    });
+  }
+
+
+  isInWishlist(productId: number): boolean {
+    return this.wishlist.some(product => product.id === productId);
   }
 
 

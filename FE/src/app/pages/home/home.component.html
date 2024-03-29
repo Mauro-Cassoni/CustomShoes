@@ -22,10 +22,18 @@
     <div class="col d-flex justify-content-center" *ngFor="let p of products">
 
       <div class="card bg-info my-3 p-2" style="width: 16rem;" [routerLink]="['/product/detail-product', p.id]">
-        <div *ngIf="p.img" class="product-image rounded border border-primary"
-          [ngStyle]="{'background-image': 'url(' + p.img + ')'}"></div>
-        <img *ngIf="!p.img" id="img" class="img-card" src="../../../../assets/img/logo/CustomShoes.png"
-          alt="placeholder image">
+        <div *ngIf="p.img" class="product-image rounded border border-primary position-relative"
+          [ngStyle]="{'background-image': 'url(' + p.img + ')'}">
+          <div class="wish position-absolute">
+            <i class="bi bi-heart-fill text-secondary" *ngIf="isInWishlist(p.id)"
+              (click)="removeFromWishlist($event, user.user.id, p.id)">
+            </i>
+            <i class="bi bi-heart text-secondary" *ngIf="!isInWishlist(p.id)"
+              (click)="addToWishlist($event, user.user.id, p.id)">
+            </i>
+          </div>
+
+        </div>
 
         <div class="card-body">
           <h5 class="card-title"><span class="text-primary">Name: </span> <span class="fw-bold">{{p.name}}</span></h5>
@@ -33,7 +41,8 @@
         <ul class="list-group-flush">
           <li class="list-group-item text-start"><span class="text-primary">Brand: </span> <span>{{p.brand}}</span></li>
           <li class="list-group-item text-start"><span class="text-primary">Category: </span>
-            <span>{{p.category}}</span></li>
+            <span>{{p.category}}</span>
+          </li>
 
           <!-- customer price -->
           <li class="list-group-item text-start" *ngIf="user.user.userType != 'BUSINESS'">
@@ -44,7 +53,6 @@
           <li class="list-group-item text-start" *ngIf="user.user.userType == 'BUSINESS'">
             <span class="text-primary">Price: </span> <span>{{ (p.price * 0.78) | number:'1.2-2' }}€</span>
           </li>
-
 
         </ul>
         <div class="card-body">

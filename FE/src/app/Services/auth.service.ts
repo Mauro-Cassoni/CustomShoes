@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment.development';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { IRegisterData } from '../Models/auth/i-register-data';
 import { IUser } from '../Models/auth/i-user';
+import { UserType } from '../Enums/user-type';
 
 
 @Injectable({
@@ -32,8 +33,12 @@ export class AuthService {
     return this.http.post<IAuthData>(`${this.endpoint}/auth/register`, register)
   }
 
-  update(userId: number, userData: IUser): Observable<IUser> {
-    return this.http.put<IUser>(`${this.endpoint}/users/${userId}`, userData)
+  update(userData: IAuthData): Observable<IUser> {
+    return this.http.put<IUser>(`${this.endpoint}/users/${userData.user.id}`, userData.user)
+    .pipe(tap(()=> {
+      this.authSubject.next(userData);
+      localStorage.setItem('authData', JSON.stringify(userData));
+    }))
   }
 
   login(loginData: IAuthData): Observable<IAuthData> {
@@ -73,5 +78,10 @@ export class AuthService {
     let authData = this.authSubject.getValue();
     return authData ? authData.user.id : null;
   }
+
+  changePassword(userId: number, passwordData: { oldPassword: string, newPassword: string }): Observable<any> {
+    return this.http.patch<any>(`${this.endpoint}/users/${userId}/password`, passwordData);
+  }
+
 
 }

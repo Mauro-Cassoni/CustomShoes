@@ -5,6 +5,7 @@ import it.epicode.CustomShoesBE.exception.AlreadyAdminException;
 import it.epicode.CustomShoesBE.exception.BadRequestExceptionHandler;
 import it.epicode.CustomShoesBE.exception.NotFoundException;
 import it.epicode.CustomShoesBE.model.Address;
+import it.epicode.CustomShoesBE.model.Product;
 import it.epicode.CustomShoesBE.model.User;
 import it.epicode.CustomShoesBE.request.PasswordRequest;
 import it.epicode.CustomShoesBE.request.UserRequest;
@@ -35,7 +36,7 @@ public class UserController {
     @Autowired
     private PasswordEncoder encoder;
 
-    @GetMapping("")
+    @GetMapping("all")
     public ResponseEntity<DefaultResponse> getAll(Pageable pageable){
         return DefaultResponse.noMessage(userService.getAll(pageable), HttpStatus.OK);
     }
@@ -87,15 +88,37 @@ public class UserController {
         return DefaultResponse.noMessage(operationalHeadquartersAddress, HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}/passwor")
+    @PatchMapping("/{id}/password")
     public ResponseEntity<DefaultResponse> updatePassword(@PathVariable("id") Long id, @RequestBody @Validated PasswordRequest passwordRequest, BindingResult bindingResult) throws BadRequestExceptionHandler, NotFoundException {
-        if (bindingResult.hasErrors()) throw new  BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+        if (bindingResult.hasErrors()) throw new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
         User u = userService.getById(id);
         if (!encoder.matches(passwordRequest.getOldPassword(), u.getPassword())){
-            throw new BadRequestExceptionHandler("Passwords not match");
+            throw new BadRequestExceptionHandler("Passwords do not match");
         }
         return DefaultResponse.noMessage(userService.updatePassword(id, passwordRequest.getNewPassword()), HttpStatus.OK);
     }
+
+    @GetMapping("/{userId}/wishlist")
+    public ResponseEntity<DefaultResponse> getWishlist(@PathVariable("userId") Long userId) throws NotFoundException {
+        User user = userService.getById(userId);
+        List<Product> wishlist = user.getWishlist();
+        return DefaultResponse.noMessage(wishlist, HttpStatus.OK);
+    }
+
+    @PostMapping("/{userId}/wishlist/add/{productId}")
+    public ResponseEntity<DefaultResponse> addToWishlist(@PathVariable("userId") Long userId, @PathVariable("productId") Long productId) throws NotFoundException {
+        userService.addProductToWishlist(userId, productId);
+        return DefaultResponse.noObject("Product successfully added to wishlist.", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{userId}/wishlist/remove/{productId}")
+    public ResponseEntity<DefaultResponse> removeFromWishlist(@PathVariable("userId") Long userId, @PathVariable("productId") Long productId) throws NotFoundException {
+        userService.removeProductFromWishlist(userId, productId);
+        return DefaultResponse.noObject("Product successfully removed from wishlist.", HttpStatus.OK);
+    }
+
+
+
 
 
 }

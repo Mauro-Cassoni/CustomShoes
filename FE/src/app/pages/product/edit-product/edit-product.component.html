@@ -10,7 +10,7 @@
         <img *ngIf="product.img" id="img" class="my-2 rounded" [src]="product.img" alt="product image" >
         <img *ngIf="!product.img" id="img" class="my-2 rounded" src="../../../../assets/img/logo/CustomShoes.png" alt="placeholder image" >
         <input type="file" id="img" (change)="onFileSelected($event)" class="form-control">
-        <button type="button" class="btn btn-primary mt-2" (click)="setImg()">Upload image</button>
+        <button type="button" class="btn btn-secondary mt-2" (click)="setImg()">Upload image</button>
       </div>
 
       <!-- Name -->

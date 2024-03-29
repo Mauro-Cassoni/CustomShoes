@@ -107,7 +107,58 @@
         </div>
       </div>
 
+    </form>
 
+    <form [formGroup]="formPassword" (ngSubmit)="changePassword()">
+
+
+      <div class="row justify-content-center mt-5">
+
+        <h2 class="text-center my-3 text-info">Change password</h2>
+
+        <!-- Password -->
+        <div class="col-md-7">
+          <label for="pec">Password *</label>
+          <input type="password" id="oldPassword" class="form-control bg-light" formControlName="oldPassword"
+            [ngClass]="{'is-valid': isValid('oldPassword'), 'is-invalid': isInvalid('oldPassword')}">
+          <div class="error-msg">
+            <span *ngIf="formPassword.controls['oldPassword'].dirty"
+                      [ngClass]="{ 'valid': isValid('oldPassword'), 'invalid': isInvalid('oldPassword') }"
+                      class="ms-1 text-danger">{{msgPsw.oldPassword}}</span>
+          </div>
+        </div>
+
+        <!-- New password -->
+        <div class="col-md-7">
+          <label for="pec">New password *</label>
+          <input type="password" id="newPassword" class="form-control bg-light" formControlName="newPassword"
+            [ngClass]="{'is-valid': isValid('newPassword'), 'is-invalid': isInvalid('newPassword')}">
+          <div class="error-msg">
+            <span *ngIf="formPassword.controls['newPassword'].dirty"
+                      [ngClass]="{ 'valid': isValid('newPassword'), 'invalid': isInvalid('newPassword') }"
+                      class="ms-1 text-danger">{{msgPsw.newPassword}}</span>
+          </div>
+        </div>
+
+        <!-- Confirm new password -->
+        <div class="col-md-7">
+          <label for="pec">Confirm new password *</label>
+          <input type="password" id="confirmPassword" class="form-control bg-light" formControlName="confirmPassword"
+            [ngClass]="{'is-valid': isValid('confirmPassword'), 'is-invalid': isInvalid('confirmPassword')}">
+          <div class="error-msg">
+            <span *ngIf="formPassword.controls['confirmPassword'].dirty"
+                      [ngClass]="{ 'valid': isValid('confirmPassword'), 'invalid': isInvalid('confirmPassword') }"
+                      class="ms-1 text-danger">{{msgPsw.confirmPassword}}</span>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-md-7">
+            <button class="btn btn-secondary" type="submit">Change</button>
+          </div>
+        </div>
+
+      </div>
     </form>
 
   </div>

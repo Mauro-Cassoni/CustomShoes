@@ -3,11 +3,21 @@
   <div class="my-3">
     <h2>Hi <span class="text-info">{{user.user.name}}</span></h2>
 
-    <div class="my-2 row justify-content-center">
+    <div>
+      <div><span class="text-info">Name: </span>{{user.user.name}}</div>
+      <div><span class="text-info">Surname: </span>{{user.user.surname}}</div>
+      <div><span class="text-info">Email: </span>{{user.user.email}}</div>
+    </div>
+
+    <div class="my-2 row justify-content-center my-5">
+
+      <h2 class="text-light h2">MENÙ</h2>
+
       <a routerLink="/account/orders" class="btn btn-primary m-2 rounded btn-profile col-5 col-md">My order</a>
       <a routerLink="/account/wishlist" class="btn btn-primary m-2 rounded btn-profile col-5 col-md">Wishlist</a>
       <a routerLink="/account/edit" class="btn btn-primary m-2 rounded btn-profile col-5 col-md">Edit profile</a>
-      <a routerLink="/account/edit-address" class="btn btn-primary m-2 rounded btn-profile col-5 col-md">Edit address</a>
+      <a routerLink="/account/edit-address" class="btn btn-primary m-2 rounded btn-profile col-5 col-md">Edit
+        address</a>
       <a routerLink="/account/invoices" *ngIf="user.user.userType === 'BUSINESS'"
         class="btn btn-primary m-2 rounded btn-profile col-5 col-md">Invoices</a>
     </div>
@@ -16,7 +26,7 @@
     <div *ngIf="user.user.role === 'ADMIN'">
       <div class="my-2 row justify-content-center">
 
-        <h2 class="text-secondary h2">ADMIN</h2>
+        <h2 class="text-secondary h2">ADMIN MENÙ</h2>
 
         <a routerLink="/product" class="btn btn-secondary m-2 rounded btn-profile col-5 col-md">Products</a>
         <a routerLink="/account/users" class="btn btn-secondary m-2 rounded btn-profile col-5 col-md">Users</a>

@@ -1,15 +1,17 @@
+import { Role } from './../../../Enums/role';
 import { IAddress } from './../../../Models/i-address';
 import { Component } from '@angular/core';
 import { ApiShopService } from '../../../Services/api-shop.service';
 import { AuthService } from '../../../Services/auth.service';
 import { IAuthData } from '../../../Models/auth/i-auth-data';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { catchError, tap } from 'rxjs';
+import { Observable, catchError, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserType } from '../../../Enums/user-type';
 import { IRegisterData } from '../../../Models/auth/i-register-data';
-import { Role } from '../../../Enums/role';
 import Swal from 'sweetalert2';
+import { Ipassword } from '../../../Models/ipassword';
+import { IUser } from '../../../Models/auth/i-user';
 
 @Component({
   selector: 'app-edit',
@@ -19,13 +21,16 @@ import Swal from 'sweetalert2';
 export class EditComponent {
 
   form!: FormGroup;
+  formPassword!: FormGroup;
   userTypes = Object.values(UserType);
   loading!: boolean;
   somethingWrong!: boolean;
   errorMsg!: IRegisterData;
+  errorMsgPsw!: Ipassword;
+  msgPsw!: Ipassword;
   msg!: IRegisterData;
   match: boolean = false
-  user: IAuthData ={
+  user: IAuthData = {
     token: '',
     user: {
       id: 0,
@@ -52,7 +57,7 @@ export class EditComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) { }
 
 
@@ -61,12 +66,17 @@ export class EditComponent {
       if (res) this.user = res;
     });
 
+    this.formPassword = this.formBuilder.group({
+      oldPassword: this.formBuilder.control(null, [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>])(?=.*[^\s]).{8,}$/)]),
+      newPassword: this.formBuilder.control(null, [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>])(?=.*[^\s]).{8,}$/)]),
+      confirmPassword: this.formBuilder.control(null, [Validators.required, this.passwordMatchValidator]),
+    })
+
     this.form = this.formBuilder.group({
       userType: [this.user.user.userType, Validators.required],
       name: [this.user.user.name, [Validators.required, Validators.minLength(2), Validators.maxLength(15), Validators.pattern(/^[a-zA-Z\s']*$/)]],
       surname: [this.user.user.surname, [Validators.required, Validators.minLength(2), Validators.maxLength(15), Validators.pattern(/^[a-zA-Z\s']*$/)]],
       email: [this.user.user.email, [Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)]],
-      password: [this.user.user.password, [Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>])(?=.*[^\s]).{8,}$/)]],
 
       businessName: [this.user.user.businessName],
       vatNumber: [this.user.user.vatNumber, [Validators.minLength(9), Validators.maxLength(11)]],
@@ -122,7 +132,13 @@ export class EditComponent {
     this.form.value.surname = this.form.value.surname.charAt(0).toUpperCase() + this.form.value.surname.slice(1).toLowerCase();
     this.form.value.email = this.form.value.email.toLowerCase();
 
-    this.authService.update(this.user.user.id,this.form.value)
+    let user2: IUser = this.form.value;
+    user2.id = this.user.user.id;
+    user2.email = this.user.user.email;
+    user2.role = this.user.user.role;
+    this.user.user = user2;
+
+    this.authService.update(this.user)
       .pipe(tap(() => {
         this.loading = false
         Swal.fire({
@@ -133,14 +149,14 @@ export class EditComponent {
           this.router.navigate(['/account']);
         });
       }),
-      catchError(error => {
-        this.somethingWrong = true;
-        console.log(error);
-        throw error;
-      })
-    )
-    .subscribe();
-}
+        catchError(error => {
+          this.somethingWrong = true;
+          console.log(error);
+          throw error;
+        })
+      )
+      .subscribe();
+  }
 
   invalidMessages(fieldName: string): string {
     const field: AbstractControl | null = this.form.get(fieldName)
@@ -160,6 +176,18 @@ export class EditComponent {
       }
     }
     return errorMsg
+  }
+
+  invalidMessagesPsw(fieldName: string): string {
+    const field: AbstractControl | null = this.formPassword.get(fieldName)
+    let errorMsgPsw: string = ''
+    if (field) {
+      if (field.errors) {
+        if (field.errors['required']) errorMsgPsw = 'Empty field'
+        if (field.errors['minlength'] && fieldName === 'oldPassword' || fieldName === 'confirmPassword' || fieldName === 'newPassword') errorMsgPsw = 'Password: minimum 8 characters, at least 1 uppercase letter, at least 1 lowercase letter, at least one number, at least one special character'
+      }
+    }
+    return errorMsgPsw
   }
 
   ngDoCheck() {
@@ -191,6 +219,12 @@ export class EditComponent {
       sdi: this.invalidMessages('sdi'),
     }
 
+    this.errorMsgPsw = {
+      oldPassword: this.invalidMessages('oldPassword'),
+      newPassword: this.invalidMessages('newPassword'),
+      confirmPassword: this.invalidMessages('confirmPassword'),
+    }
+
     this.msg = {
       email: '',
       password: '',
@@ -201,6 +235,12 @@ export class EditComponent {
       vatNumber: '',
       pec: '',
       sdi: '',
+    }
+
+    this.msgPsw = {
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: '',
     }
 
     if (this.errorMsg.name) {
@@ -239,6 +279,19 @@ export class EditComponent {
       this.msg.sdi = this.errorMsg.sdi
     }
 
+
+    if (this.errorMsgPsw.oldPassword) {
+      this.msgPsw.oldPassword = this.errorMsgPsw.oldPassword
+    }
+
+    if (this.errorMsgPsw.newPassword) {
+      this.msgPsw.newPassword = this.errorMsgPsw.newPassword
+    }
+
+    if (this.errorMsgPsw.confirmPassword) {
+      this.msgPsw.confirmPassword = this.errorMsgPsw.confirmPassword
+    }
+
   }
 
   isValid(inputName: string) {
@@ -248,4 +301,30 @@ export class EditComponent {
   isInvalid(inputName: string) {
     return !this.form.get(inputName)?.valid && this.form.get(inputName)?.dirty
   }
+
+  changePassword() {
+    this.loading = true;
+
+    delete this.form.value.confirmPassword;
+
+    this.authService.changePassword(this.user.user.id, this.formPassword.value)
+      .pipe(tap(() => {
+        this.loading = false
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Your password has been updated successfully.',
+        }).then(() => {
+          this.router.navigate(['/account']);
+        });
+      }),
+        catchError(error => {
+          this.somethingWrong = true;
+          console.log(error);
+          throw error;
+        })
+      )
+      .subscribe();
+  }
+
 }
