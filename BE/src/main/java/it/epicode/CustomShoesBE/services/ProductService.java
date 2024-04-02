@@ -68,4 +68,9 @@ public class ProductService {
         x.setImg(url);
         return productRepository.save(x);
     }
+
+    public Page<Product> searchByName(String query, Pageable pageable) {
+        return productRepository.findByNameContaining(query, pageable);
+    }
+
 }

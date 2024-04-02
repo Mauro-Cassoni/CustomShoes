@@ -34,9 +34,13 @@ public class AddressController {
 
     @PostMapping("")
     public ResponseEntity<DefaultResponse> create(@RequestBody @Validated AddressRequest addressRequest, BindingResult bindingResult) throws NotFoundException, BadRequestExceptionHandler {
-        if(bindingResult.hasErrors())
+        System.out.println("_______________________PRIMA____________________________");
+        if(bindingResult.hasErrors()) {
+            System.out.println("________________________IN MEZZO_________________________________");
             throw new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
-        return DefaultResponse.noMessage(addressService.save(addressRequest), HttpStatus.CREATED);
+        }
+        System.out.println("_________________________________DOPO______________________________________");
+            return DefaultResponse.noMessage(addressService.save(addressRequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

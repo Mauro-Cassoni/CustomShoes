@@ -9,6 +9,7 @@ import it.epicode.CustomShoesBE.responses.DefaultResponse;
 import it.epicode.CustomShoesBE.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,6 +68,13 @@ public class ProductController {
         productService.delete(id);
         return DefaultResponse.noObject("Product with id " + id + " has been deleted", HttpStatus.OK);
     }
+
+    @GetMapping("/products/search")
+    public ResponseEntity<Page<Product>> searchProducts(@RequestParam("query") String query, Pageable pageable) {
+        Page<Product> products = productService.searchByName(query, pageable);
+        return ResponseEntity.ok().body(products);
+    }
+
 
 
 }

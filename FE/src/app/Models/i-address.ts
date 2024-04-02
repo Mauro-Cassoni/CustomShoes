@@ -10,3 +10,9 @@ export interface IAddress {
   province : string;
   phoneNumber : string;
 }
+
+export interface IAddressObj {
+  date: string;
+  message: string;
+  obj: IAddress;
+}

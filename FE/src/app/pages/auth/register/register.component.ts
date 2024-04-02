@@ -5,6 +5,7 @@ import { AuthService } from '../../../Services/auth.service';
 import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs';
 import { IRegisterData } from '../../../Models/auth/i-register-data';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -54,27 +55,39 @@ export class RegisterComponent {
     return null;
   }
 
-  submit(){
-    this.loading=true;
-    this.form.value.name= this.form.value.name.charAt(0).toUpperCase()+this.form.value.name.slice(1).toLowerCase();
-    this.form.value.surname= this.form.value.surname.charAt(0).toUpperCase()+this.form.value.surname.slice(1).toLowerCase();
-    this.form.value.email= this.form.value.email.toLowerCase();
+  submit() {
+    this.loading = true;
+    this.form.value.name = this.form.value.name.charAt(0).toUpperCase() + this.form.value.name.slice(1).toLowerCase();
+    this.form.value.surname = this.form.value.surname.charAt(0).toUpperCase() + this.form.value.surname.slice(1).toLowerCase();
+    this.form.value.email = this.form.value.email.toLowerCase();
 
     delete this.form.value.confirmPassword;
-    if(this.form.value.userType==='BUSINESS'){
-      this.form.value.pec= this.form.value.pec.toLowerCase();
+    if (this.form.value.userType === 'BUSINESS') {
+      this.form.value.pec = this.form.value.pec.toLowerCase();
     }
 
     this.authService.register(this.form.value)
-    .pipe(tap(()=>{
-      this.loading=false
-      this.router.navigate(['auth/login'])
-    }),catchError(error=>{
-      this.somethingWrong=true;
-      console.log(error);
+      .pipe(
+        tap(() => {
+          this.loading = false;
+          Swal.fire({
+            icon: 'success',
+            title: 'Registration was successful!',
+            text: 'Now you can log in.',
+            confirmButtonText: 'OK'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['auth/login']);
+            }
+          });
+        }),
+        catchError(error => {
+          this.somethingWrong = true;
+          console.log(error);
 
-      throw error;
-    })).subscribe();
+          throw error;
+        })
+      ).subscribe();
   }
 
   invalidMessages(fieldName: string): string {

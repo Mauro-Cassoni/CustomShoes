@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AuthService } from '../../../Services/auth.service';
 import { IAddress } from '../../../Models/i-address';
 import { IAuthData } from '../../../Models/auth/i-auth-data';
@@ -21,11 +21,28 @@ export class EditAddressComponent {
   errorMsg!: IAddress;
   msg!: IAddress;
   match: boolean = false
-  userData!: IAuthData;
+  userData: IAuthData = {
+    token: '',
+    user: {
+      id: 0,
+      email: '',
+      password: '',
+      name: '',
+      surname: '',
+      phoneNumber: '',
+      wishlist: [],
+      businessName: '',
+      vatNumber: '',
+      insertionDate: '',
+      pec: '',
+      sdi: '',
+      invoices: []
+    }
+  }
   userTypes = Object.values(UserType);
-  shippingA!:IAddress;
-  officeA!:IAddress;
-  operationalA!:IAddress;
+  shippingA!: IAddress;
+  officeA!: IAddress;
+  operationalA!: IAddress;
 
 
   constructor(
@@ -47,25 +64,25 @@ export class EditAddressComponent {
         phoneNumber: ['']
       }),
       registeredOfficeAddress: this.formBuilder.group({
-        name: [''],
-        surname: [''],
-        street: [''],
-        streetNumber: [''],
-        city: [''],
-        postalCode: [''],
-        country: [''],
-        province: [''],
+        name: ['', [this.checkBusinessandfill]],
+        surname: ['', [this.checkBusinessandfill]],
+        street: ['', [this.checkBusinessandfill]],
+        streetNumber: ['', [this.checkBusinessandfill]],
+        city: ['', [this.checkBusinessandfill]],
+        postalCode: ['', [this.checkBusinessandfill]],
+        country: ['', [this.checkBusinessandfill]],
+        province: ['', [this.checkBusinessandfill]],
         phoneNumber: ['']
       }),
       operationalHeadquartersAddress: this.formBuilder.group({
-        name: [''],
-        surname: [''],
-        street: [''],
-        streetNumber: [''],
-        city: [''],
-        postalCode: [''],
-        country: [''],
-        province: [''],
+        name: ['', [this.checkBusinessandfill]],
+        surname: ['', [this.checkBusinessandfill]],
+        street: ['', [this.checkBusinessandfill]],
+        streetNumber: ['', [this.checkBusinessandfill]],
+        city: ['', [this.checkBusinessandfill]],
+        postalCode: ['', [this.checkBusinessandfill]],
+        country: ['', [this.checkBusinessandfill]],
+        province: ['', [this.checkBusinessandfill]],
         phoneNumber: ['']
       })
     });
@@ -82,6 +99,16 @@ export class EditAddressComponent {
 
   }
 
+  checkBusinessandfill = (formC: FormControl): ValidationErrors | null => {
+    if (this.userData.user.userType === UserType.BUSINESS && formC.value == "") {
+      return {
+        invalid: true,
+        message: "Please enter all business data"
+      };
+    }
+    return null
+  }
+
   populateShippingAddressForm() {
     this.form.get('shippingAddress')?.setValue(this.shippingA);
   }
@@ -96,6 +123,8 @@ export class EditAddressComponent {
 
   submit() {
     if (this.form.invalid) {
+      console.log("io sono invalido cazzo");
+
       return;
     }
 
@@ -103,25 +132,27 @@ export class EditAddressComponent {
     const officeAddress = this.form.get('registeredOfficeAddress')?.value;
     const operationalAddress = this.form.get('operationalHeadquartersAddress')?.value;
 
-    this.addressService.updateShippingAddress(shippingAddress).subscribe(() => {
-      this.showSuccessAlertAndRedirect();
+    this.addressService.createShippingAddress(shippingAddress).subscribe(data => {
+      this.userData.user.shippingAddress = data.obj;
+
+      if (this.userData.user.userType === UserType.BUSINESS) {
+
+        this.addressService.createRegisteredOfficeAddress(officeAddress).subscribe(data => {
+          this.userData.user.registeredOfficeAddress = data.obj;
+          this.addressService.createOperationalHeadquartersAddress(operationalAddress).subscribe(data => {
+            this.userData.user.operationalHeadquartersAddress = data.obj;
+            this.authService.update(this.userData).subscribe(()=> {
+              this.showSuccessAlertAndRedirect()
+            })
+          });
+        });
+      } else {
+        this.authService.update(this.userData).subscribe(()=> {
+          this.showSuccessAlertAndRedirect()
+        })
+      }
     });
 
-    if (this.userData.user.userType === UserType.BUSINESS) {
-      if (officeAddress) {
-        this.addressService.updateRegisteredOfficeAddress(officeAddress).subscribe(() => {
-          this.showSuccessAlertAndRedirect();
-        });
-      }
-
-      if (operationalAddress) {
-        this.addressService.updateOperationalHeadquartersAddress(operationalAddress).subscribe(() => {
-          this.showSuccessAlertAndRedirect();
-        });
-      }
-    } else {
-      this.showSuccessAlertAndRedirect();
-    }
   }
 
   showSuccessAlertAndRedirect() {

@@ -80,6 +80,11 @@ public class UserService {
         x.setInsertionDate(LocalDate.now());
         x.setPec(userRequest.getPec());
         x.setSdi(userRequest.getSdi());
+
+        x.setShippingAddress(userRequest.getShippingAddress());
+        x.setOperationalHeadquartersAddress(userRequest.getOperationalHeadquartersAddress());
+        x.setRegisteredOfficeAddress(userRequest.getRegisteredOfficeAddress());
+
         return userRepository.save(x);
     }
 

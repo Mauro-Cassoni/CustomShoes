@@ -1,9 +1,11 @@
+import { ApiShopService } from './../../Services/api-shop.service';
 import { Component } from '@angular/core';
 import { AuthService } from '../../Services/auth.service';
 import { CartService } from '../../Services/cart.service';
 import { Role } from '../../Enums/role';
 import { UserType } from '../../Enums/user-type';
 import { IAuthData } from '../../Models/auth/i-auth-data';
+import { IProduct } from '../../Models/i-product';
 
 @Component({
   selector: '.app-nav-bar',
@@ -15,8 +17,10 @@ export class NavBarComponent {
   constructor(
     public cartService: CartService,
     private authService : AuthService,
+    private apiShopService: ApiShopService,
   ){}
 
+  searchTerm: string = '';
   isLoggedIn$!:boolean
   user: IAuthData ={
     token: '',
@@ -41,6 +45,8 @@ export class NavBarComponent {
       operationalHeadquartersAddress: undefined
     }
   }
+  searchResults: IProduct[] = [];
+  showResults: boolean = false;
 
   ngOnInit(){
     this.authService.isLoggedIn$.subscribe(res => this.isLoggedIn$ = res);
@@ -51,6 +57,20 @@ export class NavBarComponent {
 
   logout(){
     this.authService.logout();
+  }
+
+  searchProducts() {
+    if (this.searchTerm.trim() !== '') {
+      this.apiShopService.searchProducts(this.searchTerm).subscribe(
+        (products) => {
+          this.searchResults = products;
+          this.showResults = true;
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }
   }
 
 }

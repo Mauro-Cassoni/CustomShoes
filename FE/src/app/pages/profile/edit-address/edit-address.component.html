@@ -50,7 +50,7 @@
 
       <!-- Business section -->
 
-      <div formGroupName="registeredOfficeAddress" class="mb-5" *ngIf="userData.user.userType === 'BUSINESS' && officeA">
+      <div formGroupName="registeredOfficeAddress" class="mb-5" *ngIf="userData.user.userType === 'BUSINESS'">
 
         <h3 class="text-center my-3 text-info">Registered office address</h3>
 
@@ -93,7 +93,7 @@
       </div>
 
       <div formGroupName="operationalHeadquartersAddress" class="mb-5"
-        *ngIf="userData.user.userType === 'BUSINESS' && operationalA">
+        *ngIf="userData.user.userType === 'BUSINESS'">
 
         <h3 class="text-center my-3 text-info">Operational headquarters address</h3>
 

@@ -8,12 +8,29 @@
     <div class="d-none d-md-flex">
 
       <!-- search button -->
-      <form class="d-flex mx-2" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+      <form class="d-flex mx-2" (submit)="searchProducts()">
+        <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search" [(ngModel)]="searchTerm" name="searchTerm">
         <button class="btn" type="submit">
           <i class="bi bi-search btnProfile text-info"></i>
         </button>
       </form>
+
+      <!-- Visualizzazione dei risultati -->
+      <div *ngIf="showResults">
+        <ul>
+          <li *ngFor="let p of searchResults">
+
+            <div class="cart-dropdown d-flex align-items-center">
+              <div class="col-2">
+                <img class="img-cart rounded mx-1 border border-1 border-primary" [src]="p.img">
+              </div>
+              <div class="col text-dark cart-name">{{p.name}}</div>
+            </div>
+
+
+          </li>
+        </ul>
+      </div>
 
       <!-- cart button -->
       <div class="mx-2">

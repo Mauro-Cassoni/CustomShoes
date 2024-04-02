@@ -67,4 +67,9 @@ export class ApiShopService {
     return this.http.patch<any>(`${environment.URL}/products/upload/${productId}`, formData);
   }
 
+  searchProducts(query: string): Observable<IProduct[]> {
+    const params = new HttpParams().set('query', query);
+    return this.http.get<IProduct[]>(`${environment.URL}/products/search`, { params });
+  }
+
 }

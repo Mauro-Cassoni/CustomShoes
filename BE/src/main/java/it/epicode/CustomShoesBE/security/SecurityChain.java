@@ -38,6 +38,7 @@ public class SecurityChain {
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/products/update/**").hasAuthority(Role.ADMIN.name()));
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/products/delete/**").hasAuthority(Role.ADMIN.name()));
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/products/upload/**").hasAuthority(Role.ADMIN.name()));
+        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.GET, "/products/search").permitAll());
 
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/users/all").hasAuthority(Role.ADMIN.name()));
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/users/**").permitAll());
