@@ -24,7 +24,7 @@ public class Address {
     private String city;
 
     @Column(name = "postal_code")
-    private Integer postalCode;
+    private String postalCode;
 
     private String country;
 

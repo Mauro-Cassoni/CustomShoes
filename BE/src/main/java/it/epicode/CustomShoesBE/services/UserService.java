@@ -93,13 +93,6 @@ public class UserService {
         userRepository.save(x);
     }
 
-    public void addWishlist(long id, long product_id) throws NotFoundException{
-        User user = getById(id);
-        Product product = productService.getById(product_id);
-        user.getWishlist().add(product);
-        userRepository.save(user);
-    }
-
     public void setShippingAddress(long id, long address_id) throws NotFoundException{
         User user = getById(id);
         Address address = addressService.getById(address_id);
@@ -173,6 +166,10 @@ public class UserService {
         u.setPassword(encoder.encode(password));
         userRepository.save(u);
         return u;
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
 }

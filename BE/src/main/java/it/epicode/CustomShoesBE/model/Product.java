@@ -24,7 +24,7 @@ public class Product {
 
     private String description;
 
-    private double size;
+    private String size;
 
     private String color;
 

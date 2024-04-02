@@ -37,8 +37,9 @@ public class UserController {
     private PasswordEncoder encoder;
 
     @GetMapping("all")
-    public ResponseEntity<DefaultResponse> getAll(Pageable pageable){
-        return DefaultResponse.noMessage(userService.getAll(pageable), HttpStatus.OK);
+    public ResponseEntity<DefaultResponse> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        return DefaultResponse.noMessage(users, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

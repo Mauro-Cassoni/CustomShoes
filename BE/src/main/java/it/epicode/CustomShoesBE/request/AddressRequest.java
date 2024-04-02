@@ -16,7 +16,7 @@ public class AddressRequest {
 
     private String city;
 
-    private Integer postalCode;
+    private String postalCode;
 
     private String country;
 

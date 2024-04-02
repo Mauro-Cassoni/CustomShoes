@@ -23,7 +23,7 @@ public class ProductRequest {
     @NotBlank(message = "description request")
     private String description;
 
-    private double size;
+    private String size;
 
     private String color;
 
