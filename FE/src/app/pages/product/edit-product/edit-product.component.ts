@@ -33,7 +33,7 @@ export class EditProductComponent {
     brand: '',
     category: '',
     description: '',
-    size: 0,
+    size: '',
     color: '',
     price: 0,
     onSale: false
@@ -49,6 +49,8 @@ export class EditProductComponent {
   ) { }
 
   ngOnInit() {
+
+    window.scrollTo(0, 0);
 
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
@@ -77,7 +79,7 @@ export class EditProductComponent {
       brand: this.formBuilder.control(null, [Validators.minLength(2), Validators.maxLength(20)]),
       category: this.formBuilder.control(null, [Validators.required]),
       description: this.formBuilder.control(null, [Validators.minLength(2)]),
-      size: this.formBuilder.control(null, [Validators.minLength(2)]),
+      size: this.formBuilder.control(null, [Validators.minLength(1)]),
       color: this.formBuilder.control(null, [Validators.minLength(2)]),
       price: this.formBuilder.control(null, [Validators.required, Validators.pattern(/^\d+(\.\d{2})?$/)]),
       onSale: this.formBuilder.control(null, [])

@@ -83,5 +83,9 @@ export class AuthService {
     return this.http.patch<any>(`${this.endpoint}/users/${userId}/password`, passwordData);
   }
 
+  getAllUsers(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(`${this.endpoint}/users`);
+  }
+
 
 }

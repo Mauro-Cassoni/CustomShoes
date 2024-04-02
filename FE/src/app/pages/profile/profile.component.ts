@@ -18,6 +18,7 @@ export class ProfileComponent {
   ){}
 
   ngOnInit(){
+    window.scrollTo(0, 0);
     this.authService.user$.subscribe(res => {
       if (res) this.user = res;
     })

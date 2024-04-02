@@ -28,6 +28,8 @@ export class NewProductComponent {
 
   ngOnInit() {
 
+    window.scrollTo(0, 0);
+
     this.form = this.formBuilder.group({
 
       img: this.formBuilder.control(null, []),

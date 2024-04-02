@@ -22,6 +22,7 @@
     <div class="col d-flex justify-content-center" *ngFor="let p of products">
 
       <div class="card bg-info my-3 p-2" style="width: 16rem;" [routerLink]="['/product/detail-product', p.id]">
+
         <div *ngIf="p.img" class="product-image rounded border border-primary position-relative"
           [ngStyle]="{'background-image': 'url(' + p.img + ')'}">
           <div class="wish position-absolute">

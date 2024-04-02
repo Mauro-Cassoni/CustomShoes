@@ -29,13 +29,14 @@ export class DetailProductComponent {
     brand: '',
     category: '',
     description: '',
-    size: 0,
+    size: '',
     color: '',
     price: 0,
     onSale: false
   };
 
   ngOnInit(){
+    window.scrollTo(0, 0);
 
     this.loadProducts();
 

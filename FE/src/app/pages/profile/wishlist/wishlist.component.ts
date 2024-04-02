@@ -50,6 +50,7 @@ export class WishlistComponent {
   }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.authService.isLoggedIn$.subscribe(res => this.isLoggedIn$ = res);
     this.authService.user$.subscribe(res => {
       if (res) {

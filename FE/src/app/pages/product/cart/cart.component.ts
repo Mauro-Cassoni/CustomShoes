@@ -43,6 +43,7 @@ export class CartComponent {
   }
 
   ngOnInit(){
+    window.scrollTo(0, 0);
     this.authService.isLoggedIn$.subscribe(res => this.isLoggedIn$ = res);
     this.cartService.getCartItems();
     this.authService.user$.subscribe(res => {

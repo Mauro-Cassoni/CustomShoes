@@ -7,6 +7,7 @@ import { OrderComponent } from './order/order.component';
 import { EditAddressComponent } from './edit-address/edit-address.component';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { NewProductComponent } from '../product/new-product/new-product.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,11 @@ const routes: Routes = [
     path: 'invoices',
     component: InvoiceComponent,
     title: 'Invoices - CustomShoes'
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+    title: 'Users - CustomShoes'
   },
 
 ];

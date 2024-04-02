@@ -5,7 +5,7 @@ export interface IProduct {
   brand: string;
   category: string;
   description: string;
-  size: number;
+  size: string;
   color: string;
   price: number;
   onSale: boolean;

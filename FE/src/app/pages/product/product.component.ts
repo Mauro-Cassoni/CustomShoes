@@ -17,6 +17,7 @@ export class ProductComponent {
   open: boolean = false;
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.loadProducts();
   }
 
