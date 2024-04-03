@@ -36,7 +36,40 @@ export class EditAddressComponent {
       insertionDate: '',
       pec: '',
       sdi: '',
-      invoices: []
+      invoices: [],
+      operationalHeadquartersAddress: {
+        name : '',
+        surname : '',
+        street : '',
+        streetNumber : '',
+        city : '',
+        postalCode : '',
+        country : '',
+        province : '',
+        phoneNumber : '',
+      },
+      registeredOfficeAddress:{
+        name : '',
+        surname : '',
+        street : '',
+        streetNumber : '',
+        city : '',
+        postalCode : '',
+        country : '',
+        province : '',
+        phoneNumber : '',
+      },
+      shippingAddress:{
+        name : '',
+        surname : '',
+        street : '',
+        streetNumber : '',
+        city : '',
+        postalCode : '',
+        country : '',
+        province : '',
+        phoneNumber : '',
+      },
     }
   }
   userTypes = Object.values(UserType);
@@ -94,6 +127,8 @@ export class EditAddressComponent {
     this.authService.user$.subscribe(res => {
       if (res) {
         this.userData = res;
+        console.log(res);
+
       }
     });
 
@@ -109,22 +144,8 @@ export class EditAddressComponent {
     return null
   }
 
-  populateShippingAddressForm() {
-    this.form.get('shippingAddress')?.setValue(this.shippingA);
-  }
-
-  populateRegisteredOfficeAddressForm() {
-    this.form.get('registeredOfficeAddress')?.setValue(this.officeA);
-  }
-
-  populateOperationalHeadquartersAddressForm() {
-    this.form.get('operationalHeadquartersAddress')?.setValue(this.operationalA);
-  }
-
   submit() {
     if (this.form.invalid) {
-      console.log("io sono invalido cazzo");
-
       return;
     }
 

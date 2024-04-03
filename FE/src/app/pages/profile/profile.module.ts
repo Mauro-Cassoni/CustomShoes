@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewProductComponent } from '../product/new-product/new-product.component';
 import { UsersComponent } from './users/users.component';
+import { AddressComponent } from './address/address.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { UsersComponent } from './users/users.component';
     OrderComponent,
     InvoiceComponent,
     NewProductComponent,
-    UsersComponent
+    UsersComponent,
+    AddressComponent
   ],
   imports: [
     CommonModule,

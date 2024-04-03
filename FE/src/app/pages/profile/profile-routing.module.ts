@@ -8,6 +8,7 @@ import { EditAddressComponent } from './edit-address/edit-address.component';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { NewProductComponent } from '../product/new-product/new-product.component';
 import { UsersComponent } from './users/users.component';
+import { AddressComponent } from './address/address.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,11 @@ const routes: Routes = [
     path: 'edit-address',
     component: EditAddressComponent,
     title: 'Edit Address - CustomShoes'
+  },
+  {
+    path: 'address',
+    component: AddressComponent,
+    title: 'Address - CustomShoes'
   },
   {
     path: 'invoices',

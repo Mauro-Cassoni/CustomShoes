@@ -1,0 +1,60 @@
+<div class="container py-3">
+
+  <div class="row justify-content-center my-2">
+
+    <div class="col-7">
+      <h1 class="text-center text-info my-2">Addresses</h1>
+    </div>
+
+    <div class="col-7 my-3">
+      <h2 class="text-center text-info my-3">Shipping address</h2>
+
+      <div><span class="text-info">Name: </span> {{userData.user.shippingAddress?.name}}</div>
+      <div><span class="text-info">Surname: </span> {{userData.user.shippingAddress?.surname}}</div>
+      <div><span class="text-info">City: </span> {{userData.user.shippingAddress?.city}}</div>
+      <div><span class="text-info">Street: </span> {{userData.user.shippingAddress?.street}}</div>
+      <div><span class="text-info">Number: </span> {{userData.user.shippingAddress?.streetNumber}}</div>
+      <div><span class="text-info">Postal code: </span> {{userData.user.shippingAddress?.postalCode}}</div>
+      <div><span class="text-info">Country: </span> {{userData.user.shippingAddress?.country}}</div>
+      <div><span class="text-info">Province: </span> {{userData.user.shippingAddress?.province}}</div>
+      <div><span class="text-info">Phone number: </span> {{userData.user.shippingAddress?.phoneNumber}}</div>
+
+    </div>
+
+    <div class="col-7 my-3" *ngIf="userData.user.userType === 'BUSINESS'">
+      <h2 class="text-center text-info my-3">Registered office address</h2>
+
+      <div><span class="text-info">Name: </span> {{userData.user.registeredOfficeAddress?.name}}</div>
+      <div><span class="text-info">Surname: </span> {{userData.user.registeredOfficeAddress?.surname}}</div>
+      <div><span class="text-info">City: </span> {{userData.user.registeredOfficeAddress?.city}}</div>
+      <div><span class="text-info">Street: </span> {{userData.user.registeredOfficeAddress?.street}}</div>
+      <div><span class="text-info">Number: </span> {{userData.user.registeredOfficeAddress?.streetNumber}}</div>
+      <div><span class="text-info">Postal code: </span> {{userData.user.registeredOfficeAddress?.postalCode}}</div>
+      <div><span class="text-info">Country: </span> {{userData.user.registeredOfficeAddress?.country}}</div>
+      <div><span class="text-info">Province: </span> {{userData.user.registeredOfficeAddress?.province}}</div>
+      <div><span class="text-info">Phone number: </span> {{userData.user.registeredOfficeAddress?.phoneNumber}}</div>
+
+    </div>
+
+    <div class="col-7 my-3" *ngIf="userData.user.userType === 'BUSINESS'">
+      <h2 class="text-center text-info my-3">Operational headquarters address</h2>
+
+      <div><span class="text-info">Name: </span> {{userData.user.operationalHeadquartersAddress?.name}}</div>
+      <div><span class="text-info">Surname: </span> {{userData.user.operationalHeadquartersAddress?.surname}}</div>
+      <div><span class="text-info">City: </span> {{userData.user.operationalHeadquartersAddress?.city}}</div>
+      <div><span class="text-info">Street: </span> {{userData.user.operationalHeadquartersAddress?.street}}</div>
+      <div><span class="text-info">Number: </span> {{userData.user.operationalHeadquartersAddress?.streetNumber}}</div>
+      <div><span class="text-info">Postal code: </span> {{userData.user.operationalHeadquartersAddress?.postalCode}}</div>
+      <div><span class="text-info">Country: </span> {{userData.user.operationalHeadquartersAddress?.country}}</div>
+      <div><span class="text-info">Province: </span> {{userData.user.operationalHeadquartersAddress?.province}}</div>
+      <div><span class="text-info">Phone number: </span> {{userData.user.operationalHeadquartersAddress?.phoneNumber}}</div>
+
+    </div>
+
+    <div class="col-7 my-3">
+      <button class="btn btn-secondary" routerLink="/account/edit-address">Edit addresses</button>
+    </div>
+
+  </div>
+
+</div>
