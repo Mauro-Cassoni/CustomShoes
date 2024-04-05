@@ -1,11 +1,11 @@
 <div class="container py-3">
-  <div>
-    <form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="row justify-content-center">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="row justify-content-center">
 
       <h2 class="text-center my-3">Edit <span class="pink">{{product.name}}</span></h2>
 
       <!-- Img -->
-      <div class="col my-3">
+      <div class="col-md-7 my-3">
         <p for="img">Image *</p>
         <img *ngIf="product.img" id="img" class="my-2 rounded" [src]="product.img" alt="product image" >
         <img *ngIf="!product.img" id="img" class="my-2 rounded" src="../../../../assets/img/logo/CustomShoes.png" alt="placeholder image" >
@@ -14,7 +14,7 @@
       </div>
 
       <!-- Name -->
-      <div class="col-md-8">
+      <div class="col-md-7">
         <label for="name">Name *</label>
         <input type="text" id="name" class="form-control" formControlName="name"
           [ngClass]="{'is-valid': isValid('name'), 'is-invalid': isInvalid('name')}">
@@ -26,7 +26,7 @@
       </div>
 
       <!-- Brand -->
-      <div class="col-md-8">
+      <div class="col-md-7">
         <label for="name">Brand</label>
         <input type="text" id="brand" class="form-control" formControlName="brand"
           [ngClass]="{'is-valid': isValid('brand'), 'is-invalid': isInvalid('brand')}">
@@ -38,7 +38,7 @@
       </div>
 
       <!-- Category -->
-      <div class="col-md-8">
+      <div class="col-md-7">
         <label for="category">Category *</label>
         <input type="text" id="category" class="form-control" formControlName="category"
           [ngClass]="{'is-valid': isValid('category'), 'is-invalid': isInvalid('category')}">
@@ -50,7 +50,7 @@
       </div>
 
       <!-- Size -->
-      <div class="col-md-8">
+      <div class="col-md-7">
         <label for="name">Size</label>
         <input type="text" id="size" class="form-control" formControlName="size"
           [ngClass]="{'is-valid': isValid('size'), 'is-invalid': isInvalid('size')}">
@@ -62,7 +62,7 @@
       </div>
 
       <!-- Color -->
-      <div class="col-md-8">
+      <div class="col-md-7">
         <label for="name">Color</label>
         <input type="text" id="color" class="form-control" formControlName="color"
           [ngClass]="{'is-valid': isValid('color'), 'is-invalid': isInvalid('color')}">
@@ -75,7 +75,7 @@
       </div>
 
       <!-- Price -->
-      <div class="col-md-8">
+      <div class="col-md-7">
         <label for="name">Price € * (Enter the price including VAT)</label>
         <input type="number" id="price" class="form-control" formControlName="price"
           [ngClass]="{'is-valid': isValid('price'), 'is-invalid': isInvalid('price')}">
@@ -87,7 +87,7 @@
       </div>
 
       <!-- Description -->
-      <div class="col-md-8">
+      <div class="col-md-7">
         <label for="name">Description *</label>
         <textarea type="info" id="description" class="form-control" formControlName="description"
           [ngClass]="{'is-valid': isValid('description'), 'is-invalid': isInvalid('description')}"></textarea>
@@ -99,20 +99,24 @@
       </div>
 
       <!-- On Sale -->
-      <div class="col-md-8">
+      <div class="col-md-7">
         <label for="onSale">On Sale?</label>
         <input type="checkbox" id="onSale" class="form-check-input mx-2" formControlName="onSale">
       </div>
 
-      <button [disabled]="!form.valid" class="btn btn-secondary my-3" type="submit">Save</button>
+      <div class="col-md-7">
+        <button [disabled]="!form.valid" class="btn btn-secondary my-3" type="submit">Save</button>
+      </div>
 
     </form>
 
-    <div class="my-4">
-      <span>Do you just want to edit? Go to </span>
-      <a type="submit" routerLink="/product">
-        Products
-      </a>
+    <div class="row justify-content-center">
+      <div class="col-md-7 my-4">
+        <span>Do you just want to edit? Go to </span>
+        <a type="submit" routerLink="/product">
+          Products
+        </a>
+      </div>
     </div>
 
   </div>

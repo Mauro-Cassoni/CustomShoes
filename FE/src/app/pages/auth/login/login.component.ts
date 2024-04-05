@@ -23,6 +23,7 @@ export class LoginComponent {
   isLoggedIn$!:boolean
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.form = this.formBuilder.group({
       email: this.formBuilder.control(null, [Validators.required, Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)]),
       password: this.formBuilder.control(null, [Validators.required])

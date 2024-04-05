@@ -1,8 +1,20 @@
 <div class="container py-3">
-  <h2 class="text-center">Users</h2>
-  <div *ngFor="let u of users">
-    <ul>
-      <li></li>
-    </ul>
+  <h2 class="text-center my-2">Users</h2>
+  <div *ngFor="let u of users" class="row justify-content-center">
+
+    <div class="bg-info rounded p-3 m-2 col-10 col-md-6 d-flex">
+      <div class="col-8">
+        <div><span class="text-primary">Name: </span>{{u.name}}</div>
+        <div><span class="text-primary">Surname: </span>{{u.surname}}</div>
+        <div><span class="text-primary">Email: </span>{{u.email}}</div>
+        <div><span class="text-primary">Role: </span>{{u.role}}</div>
+      </div>
+      <div class="mt-2">
+        <button class="btn btn-secondary m-1" *ngIf="u.role == 'USER'" (click)="promoteUserToAdmin(u.id)">ADMIN</button>
+        <button class="btn btn-secondary m-1" *ngIf="u.role == 'ADMIN'" (click)="demoteAdminToUser(u.id)">USER</button>
+        <button class="btn btn-primary m-1">DELETE</button>
+      </div>
+    </div>
+
   </div>
 </div>

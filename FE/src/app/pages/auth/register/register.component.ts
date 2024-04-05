@@ -29,6 +29,8 @@ export class RegisterComponent {
   ) { }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
+
     this.form = this.formBuilder.group({
       userType: ['CUSTOMER', Validators.required],
       name: this.formBuilder.control(null, [Validators.required, Validators.minLength(2), Validators.maxLength(15), Validators.pattern(/^[a-zA-Z\s']*$/)]),

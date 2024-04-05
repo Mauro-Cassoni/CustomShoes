@@ -71,6 +71,12 @@ public class UserController {
         return DefaultResponse.noObject("User successfully promoted to admin role.", HttpStatus.OK);
     }
 
+    @PutMapping("/{userId}/demoteToUser")
+    public ResponseEntity<DefaultResponse> demoteAdminToUser(@PathVariable("userId") Long userId) throws NotFoundException, AlreadyAdminException {
+        userService.downgradeToUser(userId);
+        return DefaultResponse.noObject("User successfully downgraded to user role.", HttpStatus.OK);
+    }
+
     @GetMapping("/{userId}/shippingAddress")
     public ResponseEntity<DefaultResponse> getShippingAddress(@PathVariable("userId") Long userId) throws NotFoundException {
         Address shippingAddress = userService.getShippingAddress(userId);

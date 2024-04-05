@@ -98,6 +98,12 @@ public class UserService {
         userRepository.save(x);
     }
 
+    public void downgradeToUser(long id) throws NotFoundException{
+        User x = getById(id);
+        x.setRole(Role.USER);
+        userRepository.save(x);
+    }
+
     public void setShippingAddress(long id, long address_id) throws NotFoundException{
         User user = getById(id);
         Address address = addressService.getById(address_id);

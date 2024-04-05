@@ -25,3 +25,9 @@ export interface IUser {
   operationalHeadquartersAddress?: IAddress;
   invoices: IInvoice[];
 }
+
+export interface IUserObjArray {
+  date: string;
+message: string;
+obj: IUser[];
+}

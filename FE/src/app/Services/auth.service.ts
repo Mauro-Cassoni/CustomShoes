@@ -6,7 +6,7 @@ import { IAuthData } from '../Models/auth/i-auth-data';
 import { environment } from '../../environments/environment.development';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { IRegisterData } from '../Models/auth/i-register-data';
-import { IUser } from '../Models/auth/i-user';
+import { IUser, IUserObjArray } from '../Models/auth/i-user';
 import { UserType } from '../Enums/user-type';
 
 
@@ -83,8 +83,16 @@ export class AuthService {
     return this.http.patch<any>(`${this.endpoint}/users/${userId}/password`, passwordData);
   }
 
-  getAllUsers(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(`${this.endpoint}/users`);
+  getAllUsers(): Observable<IUserObjArray> {
+    return this.http.get<IUserObjArray>(`${this.endpoint}/users/all`);
+  }
+
+  promoteUserToAdmin(userId: number): Observable<any> {
+    return this.http.put<any>(`${this.endpoint}/users/${userId}/promoteToAdmin`, null);
+  }
+
+  demoteAdminToUser(userId: number): Observable<any> {
+    return this.http.put<any>(`${this.endpoint}/users/${userId}/demoteToUser`, null);
   }
 
 

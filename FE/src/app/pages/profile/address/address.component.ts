@@ -71,8 +71,6 @@ export class AddressComponent {
     this.authService.user$.subscribe(res => {
       if (res) {
         this.userData = res;
-        console.log(res);
-
       }
     });
   }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IUser } from '../../../Models/auth/i-user';
 import { AuthService } from '../../../Services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-users',
@@ -23,10 +24,34 @@ export class UsersComponent {
 
   getAllUsers(): void {
     this.authService.getAllUsers().subscribe(data => {
-      console.log(data);
-
-      this.users = data;
+      this.users = data.obj;
     })
   }
+
+  promoteUserToAdmin(userId: number) {
+    this.authService.promoteUserToAdmin(userId).subscribe(
+      () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Promote to ADMIN.',
+        })
+      }
+    );
+  }
+
+  demoteAdminToUser(userId: number) {
+    this.authService.demoteAdminToUser(userId).subscribe(
+      () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Downgraded to USER.',
+        })
+      }
+    );
+  }
+
+
 
 }
