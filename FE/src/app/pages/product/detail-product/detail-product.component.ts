@@ -1,9 +1,13 @@
+import { AuthService } from './../../../Services/auth.service';
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiShopService } from '../../../Services/api-shop.service';
 import { IProduct } from '../../../Models/i-product';
 import { CartService } from '../../../Services/cart.service';
 import Swal from 'sweetalert2';
+import { Role } from '../../../Enums/role';
+import { UserType } from '../../../Enums/user-type';
+import { IAuthData } from '../../../Models/auth/i-auth-data';
 
 @Component({
   selector: 'app-detail-product',
@@ -14,10 +18,11 @@ export class DetailProductComponent {
 
   constructor(
     private apiShopService: ApiShopService,
+    private authService:AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private cartService: CartService,
-  ){}
+  ) { }
 
   products: IProduct[] = [];
 
@@ -34,10 +39,35 @@ export class DetailProductComponent {
     price: 0,
     onSale: false
   };
+  user: IAuthData = {
+    token: '',
+    user: {
+      id: 0,
+      email: '',
+      password: '',
+      name: '',
+      surname: '',
+      phoneNumber: '',
+      userType: UserType.CUSTOMER,
+      wishlist: [],
+      role: Role.USER,
+      businessName: '',
+      vatNumber: '',
+      insertionDate: '',
+      pec: '',
+      sdi: '',
+      invoices: [],
+      shippingAddress: undefined,
+      registeredOfficeAddress: undefined,
+      operationalHeadquartersAddress: undefined
+    }
+  }
 
-  ngOnInit(){
+  ngOnInit() {
     window.scrollTo(0, 0);
-
+    this.authService.user$.subscribe(res => {
+      if (res) this.user = res;
+    });
     this.loadProducts();
 
     this.route.paramMap.subscribe(params => {
